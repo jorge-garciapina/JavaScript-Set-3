@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set 3 Exercise 1</title>
+    <link rel="stylesheet" href="exercise1.css" />
+  </head>
+  <body>
+    <div id="main-container">
+      <!-- START: LEFT CONTAINER -->
+      <div class="container" id="left">
+        <h1 id="notes-title">My notes</h1>
+        <!-- Container of the notes: -->
+        <div id="notes-container"></div>
+      </div>
+      <!-- END: LEFT CONTAINER  -->
+
+      <!-- START: RIGHT CONTAINER -->
+      <div class="container" id="right">
+        <!-- Start: Note creation -->
+        <div id="note-creation">
+          <div id="note-information">
+            <label for="fname">Name of the note:</label>
+            <textarea id="note-name" cols="30" rows="1"></textarea>
+
+            <label for="fname">Note:</label>
+            <textarea id="new-note" cols="30" rows="10"></textarea>
+          </div>
+
+          <div id="bttnsCreation">
+            <button class="bttn" id="button-create" onclick="createNewNote()">
+              Create new note
+            </button>
+            <button class="bttn" id="button-create" onclick="viewAllNotes()">
+              View all notes
+            </button>
+          </div>
+        </div>
+        <!-- End: Note creation -->
+
+        <!-- Start: Note edition -->
+        <div id="note-edition">
+          <h1 id="modify-title" style="margin: 0">Note to modify</h1>
+          <textarea id="edit-note" cols="30" rows="10"></textarea>
+          <button class="bttn" id="button-edit" onclick="saveChanges()">
+            Save changes
+          </button>
+        </div>
+        <!-- End: Note edition -->
+      </div>
+      <!-- END: RIGHT CONTAINER -->
+    </div>
+    <script src="exercise1.js"></script>
+  </body>
+</html>
