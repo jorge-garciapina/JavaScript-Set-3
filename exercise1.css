@@ -1,8 +1,14 @@
+:root {
+  --body-color: #a0e7e5;
+  --hoover-color: #ffaebc;
+  --full-size: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
 body {
-  background-color: #a0e7e5;
+  background-color: var(--body-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,14 +18,14 @@ body {
 #main-container {
   width: 90%;
   height: 90vh;
-  background-color: #a0e7e5;
+  background-color: var(--body-color);
   border-radius: 10px;
   display: flex;
   flex-direction: row;
 }
 
 .container {
-  height: 100%;
+  height: var(--full-size);
   width: 50%;
   /* border: solid; */
 }
@@ -77,7 +83,7 @@ body {
 #note-information {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: var(--full-size);
   margin: 0;
   font-size: 1.2rem;
 }
@@ -85,7 +91,7 @@ body {
 #new-note,
 #edit-note {
   margin: 0;
-  width: 100%;
+  width: var(--full-size);
   height: 70%;
   background-color: white;
   padding: 0;
@@ -100,15 +106,34 @@ body {
   font-weight: bold;
 }
 
-.bttn:hover {
-  cursor: pointer;
-  background-color: #ffaebc;
-}
-
 button:hover {
   cursor: pointer;
-  background-color: #ffaebc;
+  background-color: var(--hoover-color);
 }
 /* END: NOTE CREATION/EDITION*/
 
 /*  END RIGHT CONTAINER */
+
+/*  START: NOTE STYLE */
+.note {
+  margin: 0 0 5px;
+  padding: 0;
+  background-color: #ecf87f;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/*  END: NOTE STYLE */
+
+.new-note-title {
+  margin: 0;
+}
+
+.new-note-text {
+  margin: 0 0 5px;
+  height: 140px;
+  overflow: hidden;
+}
+
