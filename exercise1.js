@@ -1,5 +1,52 @@
+function viewAllNotes() {
+  let notesContainer = document.getElementById("notes-container");
+  notesContainer.innerHTML = "";
+  let noteInf = Object.entries(localStorage);
+
+  for (elmnt of noteInf) {
+    appendNoteToHtml(elmnt[0], elmnt[1]);
+  }
+}
+
+window.addEventListener("load", () => {
+  if (Object.keys(localStorage).length !== 0) {
+    viewAllNotes();
+  }
+});
+
 // ------------------------------------------
-// newNote() is a function is used to generate the
+const inserTab = (() => {
+  let tabElements = document.querySelectorAll(".tab-able");
+  tabElements.forEach((element) => {
+    element.addEventListener("keydown", function (event) {
+      if (event.key === "Tab") {
+        event.preventDefault();
+        // Commands to retrieve the position
+        // of the text selection
+        const start = element.selectionStart;
+        const end = element.selectionEnd;
+
+        // Commands to separate the text before
+        // and after the text selection
+        const inputText = element.value;
+        let textBefore = inputText.substring(0, start);
+        let textAfter = inputText.substring(end, inputText.length);
+
+        // Insertion of the tab character:
+        element.value = textBefore + "\t" + textAfter;
+
+        // Commands to make the text selection
+        // to behave correctly:
+        element.selectionStart = start + 1;
+        element.selectionEnd = start + 1;
+      }
+    });
+  });
+})();
+
+// ------------------------------------------
+
+// tabElements() is a function is used to generate the
 // note in the HTML. It creates a note with:
 // 1- Title
 // 2- Body
@@ -8,33 +55,21 @@
 function appendNoteToHtml(name, text) {
   //----------- START: NOTE STYLE----------
 
-  let note = document.createElement("div");
-  note.setAttribute(
-    "style",
-    "margin: 0 0 5px;" +
-      "padding: 0;" +
-      "background-color: #ecf87f;" +
-      "width: 200px;" +
-      "height: 200px;" +
-      "display: flex;" +
-      "flex-direction: column;" +
-      "align-items: center;"
-  );
+  let note = document.createElement("template");
+  note.className = "note";
+
   //------------ END: NOTE STYLE-----------
 
   //---------- START: NOTE CONTENT ----------
   // TITLE:
   let noteTitle = document.createElement("h3");
-  noteTitle.setAttribute("style", "margin: 0;");
-  noteTitle.innerHTML = name;
+  noteTitle.className = "new-note-title";
+  noteTitle.textContent = name;
 
   // BODY
   let noteText = document.createElement("p");
-  noteText.setAttribute(
-    "style",
-    "margin: 0 0 5px; height:140px; overflow: hidden;"
-  );
-  noteText.innerHTML = text.substring(48);
+  noteText.className = "new-note-text";
+  noteText.textContent = text.substring(48);
   //----------- END: NOTE CONTENT -----------
 
   //----------- START: NOTE BUTTONS----------
@@ -44,29 +79,39 @@ function appendNoteToHtml(name, text) {
 
   // DELETE BUTTON:
   let deleteButton = document.createElement("button");
-  deleteButton.innerHTML = "Delete";
+  deleteButton.textContent = "Delete";
   // Delete functionality:
   deleteButton.onclick = function () {
-    localStorage.removeItem(name);
-    viewAllNotes();
+    //FEEDBACK:
+    if (confirm("Are you sure you want to delete this note?")) {
+      localStorage.removeItem(name);
+      viewAllNotes();
+    }
   };
   deleteButton.style = "margin-right: 5px";
   //--
 
   // MODIFY BUTTON:
   let modifyButton = document.createElement("button");
-  modifyButton.innerHTML = "Modify";
+  modifyButton.textContent = "Modify";
   // Modify functionality
   modifyButton.onclick = function () {
+    // FEEDBACK:
+    //-- To make avoid deletion while note is
+    // being modified.
+    noteMenu.removeChild(deleteButton);
+    //--
     let title = document.getElementById("modify-title");
-    let texto = document.getElementById("edit-note");
-    title.innerHTML = name;
-    texto.innerHTML = text.substring(48);
+    let textElement = document.getElementById("edit-note");
+    title.textContent = name;
+    textElement.value = "";
+    textElement.value = text.substring(48);
+    textElement.textContent = text.substring(48);
   };
   //--
   // INFORMATION BUTTON:
   let informationButton = document.createElement("button");
-  informationButton.innerHTML = "Info";
+  informationButton.textContent = "Info";
   informationButton.style = "margin-left: 5px";
   // info functionality
   informationButton.onclick = function () {
@@ -75,7 +120,7 @@ function appendNoteToHtml(name, text) {
     let lastModified = rawInfo.substring(24, 48);
     alert("Created: " + creation + "\nLast modification: " + lastModified);
   };
-  //--
+  //--S
   noteMenu.appendChild(deleteButton);
   noteMenu.appendChild(modifyButton);
   noteMenu.appendChild(informationButton);
@@ -115,36 +160,23 @@ function createNewNote() {
   i++;
 }
 // ------------------------------------------
-// viewAllNotes() is used to view all the notes made by the user
-function viewAllNotes() {
-  if (Object.keys(localStorage).length === 0) {
-    alert("No notes");
-  }
-  let notesContainer = document.getElementById("notes-container");
-  notesContainer.innerHTML = "";
-  let noteInf = Object.entries(localStorage);
 
-  for (elmnt of noteInf) {
-    appendNoteToHtml(elmnt[0], elmnt[1]);
-  }
-}
-// ------------------------------------------
 // saveChanges() is used to save the changes when user modify a note
 function saveChanges() {
   if (Object.keys(localStorage).length > 0) {
     let title = document.getElementById("modify-title");
-    let texto = document.getElementById("edit-note");
-    let content = localStorage.getItem(title.innerHTML);
+    let textElement = document.getElementById("edit-note");
+    let content = localStorage.getItem(title.textContent);
     let creationDate = content.substring(0, 24);
     let modificationDate = new Date();
     modificationDate = String(modificationDate).substring(0, 24);
 
     localStorage.setItem(
-      title.innerHTML,
-      creationDate + modificationDate + texto.value
+      title.textContent,
+      creationDate + modificationDate + textElement.value
     );
-    title.innerHTML = "Note to modify";
-    texto.value = "";
-    viewAllNotes();
+    title.textContent = "Note to modify";
+    textElement.value = "";
   }
+  viewAllNotes();
 }
