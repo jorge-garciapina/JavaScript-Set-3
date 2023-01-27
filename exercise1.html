@@ -26,15 +26,17 @@
             <textarea id="note-name" cols="30" rows="1"></textarea>
 
             <label for="fname">Note:</label>
-            <textarea id="new-note" cols="30" rows="10"></textarea>
+            <textarea
+              class="tab-able"
+              id="new-note"
+              cols="30"
+              rows="10"
+            ></textarea>
           </div>
 
           <div id="bttnsCreation">
             <button class="bttn" id="button-create" onclick="createNewNote()">
               Create new note
-            </button>
-            <button class="bttn" id="button-create" onclick="viewAllNotes()">
-              View all notes
             </button>
           </div>
         </div>
@@ -43,7 +45,12 @@
         <!-- Start: Note edition -->
         <div id="note-edition">
           <h1 id="modify-title" style="margin: 0">Note to modify</h1>
-          <textarea id="edit-note" cols="30" rows="10"></textarea>
+          <textarea
+            class="tab-able"
+            id="edit-note"
+            cols="30"
+            rows="10"
+          ></textarea>
           <button class="bttn" id="button-edit" onclick="saveChanges()">
             Save changes
           </button>
