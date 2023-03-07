@@ -74,8 +74,8 @@ function appendNoteToHtml(noteName, noteBody) {
 
   //----------- START: NOTE BUTTONS----------
   // BUTTON CONTAINER:
-  let notesButtonsContainer = document.createElement("div");
-  notesButtonsContainer.className = "buttonsContainer";
+  let buttonsContainer = document.createElement("template");
+  buttonsContainer.className = "buttonsContainer";
   //--
 
   // DELETE BUTTON:
@@ -135,16 +135,16 @@ function appendNoteToHtml(noteName, noteBody) {
     }
   };
   //--S
-  notesButtonsContainer.appendChild(deleteButton);
-  notesButtonsContainer.appendChild(modifyButton);
-  notesButtonsContainer.appendChild(informationButton);
+  buttonsContainer.appendChild(deleteButton);
+  buttonsContainer.appendChild(modifyButton);
+  buttonsContainer.appendChild(informationButton);
 
   //------------ END: NOTE BUTTONS-----------
 
   // APPENDD ELEMENTS TO THE NOTE:
   note.appendChild(noteTitle);
   note.appendChild(noteText);
-  note.appendChild(notesButtonsContainer);
+  note.appendChild(buttonsContainer);
   //--
 
   // APPEND NOTE TO THE CONTAINER IN DOM:
