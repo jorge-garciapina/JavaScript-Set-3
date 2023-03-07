@@ -27,15 +27,12 @@ body {
 .container {
   height: var(--full-size);
   width: 50%;
-  /* border: solid; */
 }
 
 #note-creation,
 #note-edition {
   height: 45%;
   width: 90%;
-  /* border: solid; */
-  /* background-color: #b4f8c8; */
 }
 
 /* START: LEFT CONTAINER */
@@ -137,3 +134,10 @@ button:hover {
   overflow: hidden;
 }
 
+.deleteButton {
+  margin-right: 5px;
+}
+
+.informationButton {
+  margin-right: 5px;
+}
