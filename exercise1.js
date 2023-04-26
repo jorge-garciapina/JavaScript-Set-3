@@ -53,35 +53,23 @@ const tabEventManager = (() => {
 // ------------------------------------------
 
 function appendNoteToHtml(noteName, noteBody) {
-  //----------- START: NOTE STYLE----------
+  //--------------------------------------
+  //----------------INICIO----------------
+  // Get the template and clone its content
+  const template = document.getElementById("note-template");
+  const note = template.content.cloneNode(true);
 
-  let note = document.createElement("template");
-  note.className = "note";
-
-  //------------ END: NOTE STYLE-----------
-
-  //---------- START: NOTE CONTENT ----------
-  // TITLE:
-  let noteTitle = document.createElement("h3");
-  noteTitle.className = "new-note-title";
+  // Set note title and body
+  const noteTitle = note.querySelector(".new-note-title");
   noteTitle.textContent = noteName;
-
-  // BODY
-  let noteText = document.createElement("p");
-  noteText.className = "new-note-text";
+  const noteText = note.querySelector(".new-note-text");
   noteText.textContent = noteBody;
-  //----------- END: NOTE CONTENT -----------
 
-  //----------- START: NOTE BUTTONS----------
-  // BUTTON CONTAINER:
-  let buttonsContainer = document.createElement("template");
-  buttonsContainer.className = "buttonsContainer";
-  //--
+  //-----------------FIN------------------
+  //--------------------------------------
 
   // DELETE BUTTON:
-  let deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete";
-  deleteButton.className = "noteButton";
+  const deleteButton = note.querySelector(".noteButton:nth-child(1)");
   // Delete functionality:
   deleteButton.onclick = function () {
     //FEEDBACK:
@@ -93,9 +81,7 @@ function appendNoteToHtml(noteName, noteBody) {
   //--
 
   // MODIFY BUTTON:
-  let modifyButton = document.createElement("button");
-  modifyButton.className = "noteButton";
-  modifyButton.textContent = "Modify";
+  const modifyButton = note.querySelector(".noteButton:nth-child(2)");
   // Modify functionality
   modifyButton.onclick = function () {
     let buttonCreate = document.getElementById("button-create");
@@ -116,10 +102,7 @@ function appendNoteToHtml(noteName, noteBody) {
   };
   //--
   // INFORMATION BUTTON:
-  let informationButton = document.createElement("button");
-  informationButton.className = "noteButton";
-  informationButton.textContent = "Info";
-  informationButton.className = "informationButton";
+  const informationButton = note.querySelector(".noteButton:nth-child(3)");
   // info functionality
   informationButton.onclick = function () {
     for (let note of parsedNotesInLocalStorage()) {
@@ -134,23 +117,14 @@ function appendNoteToHtml(noteName, noteBody) {
       }
     }
   };
-  //--S
-  buttonsContainer.appendChild(deleteButton);
-  buttonsContainer.appendChild(modifyButton);
-  buttonsContainer.appendChild(informationButton);
 
-  //------------ END: NOTE BUTTONS-----------
-
-  // APPENDD ELEMENTS TO THE NOTE:
-  note.appendChild(noteTitle);
-  note.appendChild(noteText);
-  note.appendChild(buttonsContainer);
-  //--
-
-  // APPEND NOTE TO THE CONTAINER IN DOM:
-  let notesContainer = document.getElementById("notes-container");
+  //--------------------------------------
+  //----------------INICIO----------------
+  // Append note to the container in DOM
+  const notesContainer = document.getElementById("notes-container");
   notesContainer.appendChild(note);
-  //--
+  //-----------------FIN------------------
+  //--------------------------------------
 }
 // ------------------------------------------
 // createNewNote() is used to define the title and body
